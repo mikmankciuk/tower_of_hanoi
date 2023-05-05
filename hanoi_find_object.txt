@@ -1,0 +1,75 @@
+/PROG  HANOI_FIND_OBJECT
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 940;
+CREATE		= DATE 22-11-28  TIME 15:02:38;
+MODIFIED	= DATE 22-12-09  TIME 14:58:02;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 50;
+MEMORY_SIZE	= 1368;
+PROTECT		= READ;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= *,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  !znajdz obiekt ar[1] ;
+   2:  !jezeli nie znajdzie ;
+   3:  !ar[1] = ar[1]-1 ;
+   4:  !zwraca nr wiezy ;
+   5:  !0 gdy nie znajdzie ;
+   6:   ;
+   7:  R[75:OBJ_2LOOK4]=AR[1]    ;
+   8:  IF R[75:OBJ_2LOOK4]<R[83:SMALLEST],JMP LBL[11] ;
+   9:   ;
+  10:  LBL[13] ;
+  11:  R[74:FIND_INDEX]=100    ;
+  12:   ;
+  13:  LBL[10] ;
+  14:  R[74:FIND_INDEX]=R[74:FIND_INDEX]+1    ;
+  15:   ;
+  16:  IF R[R[74]]=R[75:OBJ_2LOOK4],JMP LBL[3] ;
+  17:   ;
+  18:  IF R[74:FIND_INDEX]<129,JMP LBL[10] ;
+  19:   ;
+  20:  !nie znaleziono biektu ;
+  21:  R[75:OBJ_2LOOK4]=R[75:OBJ_2LOOK4]-1    ;
+  22:  WAIT   0.00(sec) ;
+  23:  IF R[75:OBJ_2LOOK4]<R[83:SMALLEST],JMP LBL[11] ;
+  24:   ;
+  25:  !szukaj mniejszego ;
+  26:  JMP LBL[13] ;
+  27:   ;
+  28:  !brak nast najw ;
+  29:  LBL[11] ;
+  30:  R[76:OBJ_FOUND]=0    ;
+  31:  JMP LBL[12] ;
+  32:   ;
+  33:  !znaleziono ;
+  34:  LBL[3] ;
+  35:   ;
+  36:  IF R[74:FIND_INDEX]<110,JMP LBL[1] ;
+  37:  IF R[74:FIND_INDEX]<120,JMP LBL[2] ;
+  38:   ;
+  39:  R[76:OBJ_FOUND]=3    ;
+  40:  JMP LBL[4] ;
+  41:  LBL[1] ;
+  42:  R[76:OBJ_FOUND]=1    ;
+  43:  JMP LBL[4] ;
+  44:  LBL[2] ;
+  45:  R[76:OBJ_FOUND]=2    ;
+  46:   ;
+  47:  LBL[4] ;
+  48:  R[73:LARGEST_2FIND]=R[75:OBJ_2LOOK4]    ;
+  49:  //R[77:START_TOW]=R[76:OBJ_FOUND]    ;
+  50:  LBL[12] ;
+/POS
+/END
+
